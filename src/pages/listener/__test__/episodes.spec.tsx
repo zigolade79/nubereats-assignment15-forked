@@ -18,5 +18,9 @@ describe("<Episodes />", () => {
       );
     });
   });
-  it("renders OK", async () => {});
+  it("renders OK", async () => {
+    await waitFor(() => {
+      expect(document.title).toBe(/Episode List | Nuber-podcasts/i)
+    });
+  });
 });

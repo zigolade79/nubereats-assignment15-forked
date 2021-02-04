@@ -99,6 +99,7 @@ describe("<CreateAccount />", () => {
       },
     });
     mockedClient.setRequestHandler(CREATE_ACCOUNT_MUTATION, mockedMutationResponse);
+    jest.spyOn(window, "alert").mockImplementation(() => null);
     await waitFor(() => {
       userEvent.type(email, formData.email);
       userEvent.type(password, formData.password);
@@ -113,6 +114,7 @@ describe("<CreateAccount />", () => {
         role:formData.role,
       },
     });
+    expect(window.alert).toHaveBeenCalledWith("Account Created! Log in now!");
     const errorMessage = getByRole("alert");
     expect(errorMessage).toHaveTextContent(/mutation-error/i);
   });
