@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { PODCAST_FRAGMENT } from "../../fragments";
 import { getAllPodcastQuery } from "../../__type_graphql__/getAllPodcastQuery";
 
-const ALLPODCASTS_QUERY = gql`
+export const ALLPODCASTS_QUERY = gql`
     query getAllPodcastQuery{
         getAllPodcasts{
             ok

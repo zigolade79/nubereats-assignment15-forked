@@ -8,7 +8,7 @@ import {
   getEpisodes_getPodcast_podcast
 } from "../../__type_graphql__/getEpisodes";
 
-const GET_EPISODES_QUERY = gql`
+export const GET_EPISODES_QUERY = gql`
   query getEpisodes($input: PodcastSearchInput!) {
     getPodcast(input: $input) {
       ok
@@ -45,7 +45,7 @@ export const Episodes = () => {
       }
     }
   );
-
+  console.log(data);
   if (!data || loading || error) {
     return (
       <div className="h-screen flex justify-center items-center">
@@ -53,7 +53,7 @@ export const Episodes = () => {
       </div>
     );
   }
-
+  
   return (
     <div className="w-full px-5 xl:px-0 mx-auto max-w-screen-xl">
       <Helmet>

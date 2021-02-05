@@ -19,10 +19,7 @@ const ListenerRoutes = [
 export const LoggedInRouter = () => {
     const { data, loading, error } = useMe();
 
-    const handleClick = () => {
-        localStorage.removeItem(LS_TOKEN);
-        isLoggedInVar(false);
-    }
+  
     if (!data || loading || error) {
         return (
             <div className="h-screen flex justify-center items-center">
