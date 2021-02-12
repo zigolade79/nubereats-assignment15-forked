@@ -18,6 +18,35 @@ export interface CreateAccountInput {
   role?: UserRole | null;
 }
 
+export interface CreateEpisodeInput {
+  title: string;
+  category: string;
+  podcastId: number;
+}
+
+export interface CreatePodcastInput {
+  title: string;
+  category: string;
+  description?: string | null;
+  thumbnail?: string | null;
+}
+
+export interface EpisodesSearchInput {
+  podcastId: number;
+  episodeId: number;
+}
+
+export interface GetAllPodcastsInput {
+  page?: number | null;
+  pageSize?: number | null;
+}
+
+export interface GetEpisodesInput {
+  page?: number | null;
+  pageSize?: number | null;
+  podcastId: number;
+}
+
 export interface LoginInput {
   email: string;
   password: string;

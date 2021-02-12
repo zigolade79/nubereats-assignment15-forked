@@ -6,16 +6,16 @@
 import { PodcastSearchInput, GetEpisodesInput } from "./globalTypes";
 
 // ====================================================
-// GraphQL query operation: getEpisodes
+// GraphQL query operation: getMyEpisodes
 // ====================================================
 
-export interface getEpisodes_getPodcast_podcast_host {
+export interface getMyEpisodes_getPodcast_podcast_host {
   __typename: "User";
   id: number;
   email: string;
 }
 
-export interface getEpisodes_getPodcast_podcast {
+export interface getMyEpisodes_getPodcast_podcast {
   __typename: "Podcast";
   id: number;
   title: string;
@@ -23,37 +23,39 @@ export interface getEpisodes_getPodcast_podcast {
   thumbnail: string | null;
   description: string | null;
   rating: number;
-  host: getEpisodes_getPodcast_podcast_host;
+  host: getMyEpisodes_getPodcast_podcast_host;
   isOnSubscribe: boolean | null;
   numSubscriber: number | null;
 }
 
-export interface getEpisodes_getPodcast {
+export interface getMyEpisodes_getPodcast {
   __typename: "PodcastOutput";
   ok: boolean;
   error: string | null;
-  podcast: getEpisodes_getPodcast_podcast | null;
+  podcast: getMyEpisodes_getPodcast_podcast | null;
 }
 
-export interface getEpisodes_getEpisodes_episodes {
+export interface getMyEpisodes_getEpisodes_episodes {
   __typename: "Episode";
+  id: number;
   title: string;
   description: string | null;
+  category: string;
 }
 
-export interface getEpisodes_getEpisodes {
+export interface getMyEpisodes_getEpisodes {
   __typename: "EpisodesOutput";
   ok: boolean;
   error: string | null;
-  episodes: getEpisodes_getEpisodes_episodes[] | null;
+  episodes: getMyEpisodes_getEpisodes_episodes[] | null;
 }
 
-export interface getEpisodes {
-  getPodcast: getEpisodes_getPodcast;
-  getEpisodes: getEpisodes_getEpisodes;
+export interface getMyEpisodes {
+  getPodcast: getMyEpisodes_getPodcast;
+  getEpisodes: getMyEpisodes_getEpisodes;
 }
 
-export interface getEpisodesVariables {
+export interface getMyEpisodesVariables {
   podcastSearchInput: PodcastSearchInput;
   getEpisodesInput: GetEpisodesInput;
 }

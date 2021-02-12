@@ -5,8 +5,24 @@ export const PODCAST_FRAGMENT = gql`
         id
         title
         category
-        thumbnailUrl
+        thumbnail
         description
-        rating
+        rating  
+        host{
+            id
+            email
+        }
+        isOnSubscribe
+        numSubscriber     
+    }
+`;
+
+export const EPISODE_FRAGMENT = gql`
+    fragment EpisodeParts on Episode {
+        id
+        title
+        description
+        category
+       
     }
 `;

@@ -6,9 +6,10 @@ import { authTokenVar, isLoggedInVar } from "../apollo";
 import { Button } from "../components/button";
 import { FormError } from "../components/form-error";
 import { LS_TOKEN } from "../constants";
+import podcastLogo from "../images/logo.svg";
 import {
   LoginMutation,
-  LoginMutationVariables
+  LoginMutationVariables,
 } from "../__type_graphql__/LoginMutation";
 
 export const LOGIN_MUTATION = gql`
@@ -27,15 +28,19 @@ interface ILoginForm {
 }
 
 export const Login = () => {
-  const { register, getValues, errors, handleSubmit, formState } = useForm<
-    ILoginForm
-  >({
-    mode: "onChange"
+  const {
+    register,
+    getValues,
+    errors,
+    handleSubmit,
+    formState,
+  } = useForm<ILoginForm>({
+    mode: "onChange",
   });
 
   const onCompleted = (data: LoginMutation) => {
     const {
-      login: { ok, token }
+      login: { ok, token },
     } = data;
 
     if (ok && token) {
@@ -45,14 +50,14 @@ export const Login = () => {
     }
   };
   const variables = {
-    loginInput: getValues()
+    loginInput: getValues(),
   };
   const [loginMutation, { data: loginMutationResult, loading }] = useMutation<
     LoginMutation,
     LoginMutationVariables
   >(LOGIN_MUTATION, {
     variables,
-    onCompleted
+    onCompleted,
   });
 
   const _submit = () => {
@@ -60,51 +65,25 @@ export const Login = () => {
   };
 
   return (
-    <div className="h-screen flex justify-center items-center bg-gray-50">
+    <div className="container">
       <Helmet>
-        <title>Log In | Nuber-podcasts</title>
+        <title>Log In | podcasts</title>
       </Helmet>
-      <div className="bg-white shadow-2xl rounded-lg w-full max-w-3xl mx-5 flex justify-between">
-        <div className="hidden sm:block sm:w-7/12 bg-gradient-to-tr from-green-400 to-blue-400  flex justify-center items-center rounded-tl-lg rounded-bl-lg">
-          {" "}
-          {/*Right Side*/}
-          <div className="w-full h-full flex flex-col justify-center text-white text-right p-6">
-            <h3 className="text-4xl font-medium">Wanna listen?</h3>
-            <span className="mt-4 text-medium">
-              Just Subscribe! Deliver all podcasts to your ears.
-            </span>
-          </div>
-        </div>
+
+      <div className="g-gradient-to-b from-yellow-400 via-red-500 to-pink-500 h-screen flex flex-col justify-center items-center">
+        <img src={podcastLogo} className="w-20 mb-10" />
+        <h2 className="text-3xl mb-9">Welcome Podcasts</h2>
         <div className="w-full sm:w-5/12 py-16">
-          {" "}
-          {/*Left Side*/}
-          <h3 className="text-blue-400 text-3xl text-center mb-10 font-medium">
-            Nuber-Podcasts
-          </h3>
           <form
             onSubmit={handleSubmit(_submit)}
             className="w-full flex flex-col px-14"
           >
-            <div className="border-b-2 border-blue-400 py-2 bg-transparent flex">
-              <svg
-                className="w-6"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                />
-              </svg>
+            <div className=" py-2 bg-transparent flex">
               <input
                 ref={register({
-                  required: "Email is required!"
+                  required: "Email is required!",
                 })}
-                className="focus:outline-none pl-2 w-full"
+                className="input focus:outline-none pl-2 w-full"
                 name="email"
                 type="email"
                 placeholder="E-mail"
@@ -113,27 +92,13 @@ export const Login = () => {
             {errors.email?.message && (
               <FormError errorMessage={errors.email.message} />
             )}
-            <div className="mt-8 border-b-2 border-blue-400 py-2 bg-transparent flex">
-              <svg
-                className="w-6"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"
-                />
-              </svg>
+            <div className=" py-2 bg-transparent flex">
               <input
                 ref={register({
                   required: "Password is required!",
-                  minLength: 10
+                  //minLength: 10
                 })}
-                className="focus:outline-none pl-2 w-full"
+                className="input focus:outline-none pl-2 w-full"
                 name="password"
                 type="password"
                 placeholder="Password"
@@ -142,9 +107,9 @@ export const Login = () => {
             {errors.password?.message && (
               <FormError errorMessage={errors.password.message} />
             )}
-            {errors.password?.type === "minLength" && (
+            {/*errors.password?.type === "minLength" && (
               <FormError errorMessage="Password must be more than 10 characters" />
-            )}
+            )*/}
 
             <Button
               className="mt-12"

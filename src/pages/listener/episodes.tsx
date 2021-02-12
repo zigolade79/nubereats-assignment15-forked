@@ -5,19 +5,22 @@ import { PODCAST_FRAGMENT } from "../../fragments";
 import {
   getEpisodes,
   getEpisodesVariables,
-  getEpisodes_getPodcast_podcast
+  getEpisodes_getPodcast_podcast,
 } from "../../__type_graphql__/getEpisodes";
 
 export const GET_EPISODES_QUERY = gql`
-  query getEpisodes($input: PodcastSearchInput!) {
-    getPodcast(input: $input) {
+  query getEpisodes(
+    $podcastSearchInput: PodcastSearchInput!
+    $getEpisodesInput: GetEpisodesInput!
+  ) {
+    getPodcast(input: $podcastSearchInput) {
       ok
       error
       podcast {
         ...PodcastParts
       }
     }
-    getEpisodes(input: $input) {
+    getEpisodes(input: $getEpisodesInput) {
       ok
       error
       episodes {
@@ -39,10 +42,13 @@ export const Episodes = () => {
     GET_EPISODES_QUERY,
     {
       variables: {
-        input: {
-          id: +params.id
-        }
-      }
+        podcastSearchInput: {
+          id: +params.id,
+        },
+        getEpisodesInput: {
+          podcastId: +params.id,
+        },
+      },
     }
   );
   console.log(data);
@@ -53,7 +59,7 @@ export const Episodes = () => {
       </div>
     );
   }
-  
+
   return (
     <div className="w-full px-5 xl:px-0 mx-auto max-w-screen-xl">
       <Helmet>
@@ -76,7 +82,7 @@ export const Episodes = () => {
         </div>
         <div
           style={{
-            backgroundImage: `url(${data?.getPodcast.podcast?.thumbnailUrl})`
+            backgroundImage: `url(${data?.getPodcast.podcast?.thumbnail})`,
           }}
           className="bg-cover w-32 h-32 md:w-48 md:h-48 rounded-md"
         ></div>

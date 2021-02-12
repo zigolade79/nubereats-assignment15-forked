@@ -3,18 +3,29 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+import { GetAllPodcastsInput } from "./globalTypes";
+
 // ====================================================
 // GraphQL query operation: getAllPodcastQuery
 // ====================================================
+
+export interface getAllPodcastQuery_getAllPodcasts_podcasts_host {
+  __typename: "User";
+  id: number;
+  email: string;
+}
 
 export interface getAllPodcastQuery_getAllPodcasts_podcasts {
   __typename: "Podcast";
   id: number;
   title: string;
   category: string;
-  thumbnailUrl: string | null;
+  thumbnail: string | null;
   description: string | null;
   rating: number;
+  host: getAllPodcastQuery_getAllPodcasts_podcasts_host;
+  isOnSubscribe: boolean | null;
+  numSubscriber: number | null;
 }
 
 export interface getAllPodcastQuery_getAllPodcasts {
@@ -26,4 +37,8 @@ export interface getAllPodcastQuery_getAllPodcasts {
 
 export interface getAllPodcastQuery {
   getAllPodcasts: getAllPodcastQuery_getAllPodcasts;
+}
+
+export interface getAllPodcastQueryVariables {
+  input: GetAllPodcastsInput;
 }
