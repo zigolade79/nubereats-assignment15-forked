@@ -19,7 +19,7 @@ export const Button: React.FC<IButtonProps> = ({
     onClick={onClick}
     className={`${className} py-3 text-white text-xl font-bold focus:outline-none  transition-colors rounded-sm ${
       canClick
-        ? "bg-blue-400 hover:bg-blue-500"
+        ? "bg-purple-400 hover:bg-purple-500"
         : "bg-gray-300 pointer-events-none"
     }`}
   >
