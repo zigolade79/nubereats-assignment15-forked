@@ -13,6 +13,8 @@ import { MyPodcasts } from "../pages/host/my-podcasts";
 import { AddPodcast } from "../pages/host/add-podcast";
 import { MyPodcast } from "../pages/host/my-podcast";
 import { AddEpisode } from "../pages/host/add-episode";
+import { RecentPodcasts } from "../pages/listener/recent-podcasts";
+import { Subscriptions } from "../pages/listener/subscriptions";
 
 /*
 const ListenerRoutes = [
@@ -28,6 +30,14 @@ const listenerRoutes = [
   {
     path: "/",
     component: <Podcasts />,
+  },
+  {
+    path: "/recent",
+    component: <RecentPodcasts />,
+  },
+  {
+    path: "/subscriptions",
+    component: <Subscriptions />,
   },
   {
     path: "/podcasts/:id",

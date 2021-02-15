@@ -1,3 +1,5 @@
+const colors = require('tailwindcss/colors')
+
 module.exports = {
 	purge: [
 		'./src/**/*.tsx',
@@ -5,6 +7,7 @@ module.exports = {
 	],
 	darkMode: false, // or 'media' or 'class'
 	theme: {
+		
 		truncate: {
 			lines: {
 				3: "3",
@@ -13,7 +16,9 @@ module.exports = {
 				8: "8",
 			},
 		},
-		extend: {},
+		extend: {colors:{
+			amber: colors.amber
+		},},
 	},
 	variants: {
 		extend: {

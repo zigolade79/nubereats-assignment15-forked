@@ -47,6 +47,11 @@ export interface GetEpisodesInput {
   podcastId: number;
 }
 
+export interface GetRecentlyPodcastInput {
+  page?: number | null;
+  pageSize?: number | null;
+}
+
 export interface LoginInput {
   email: string;
   password: string;
@@ -54,6 +59,11 @@ export interface LoginInput {
 
 export interface PodcastSearchInput {
   id: number;
+}
+
+export interface SeeSubscriptionInput {
+  page?: number | null;
+  pageSize?: number | null;
 }
 
 export interface ToggleSubscriptionInput {

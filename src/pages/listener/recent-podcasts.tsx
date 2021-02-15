@@ -8,10 +8,11 @@ import {
   getAllPodcastQuery,
   getAllPodcastQueryVariables,
 } from "../../__type_graphql__/getAllPodcastQuery";
+import { getRecentlyPodcast, getRecentlyPodcastVariables } from "../../__type_graphql__/getRecentlyPodcast";
 
-export const ALLPODCASTS_QUERY = gql`
-  query getAllPodcastQuery($input: GetAllPodcastsInput!) {
-    getAllPodcasts(input: $input) {
+export const RECENTPODCAST_QUERY = gql`
+  query getRecentlyPodcast($input: GetRecentlyPodcastInput!) {
+    getRecentlyPodcast(input: $input) {
       ok
       error
       podcasts {
@@ -22,10 +23,10 @@ export const ALLPODCASTS_QUERY = gql`
   ${PODCAST_FRAGMENT}
 `;
 
-export const Podcasts = () => {
+export const RecentPodcasts = () => {
   const [page, setPage] = useState(1);
-  const { data } = useQuery<getAllPodcastQuery, getAllPodcastQueryVariables>(
-    ALLPODCASTS_QUERY,
+  const { data } = useQuery<getRecentlyPodcast, getRecentlyPodcastVariables>(
+    RECENTPODCAST_QUERY,
     {
       variables: {
         input: {
@@ -55,27 +56,27 @@ export const Podcasts = () => {
   return (
     <div>
       <Helmet>
-        <title>Home | podcasts</title>
+        <title>Recent Podcasts | podcasts</title>
       </Helmet>
       <div className="container divide-y divide-gray-100">
         <nav className="p-4">
           <ul className="flex space-x-2">
-          <NavItem href="/" isActive>Podcasts</NavItem>
-          <NavItem href="/recent">Recent</NavItem>
-          <NavItem href="/subscriptions">Subscriptions</NavItem>
+          <NavItem href="/">Podcasts</NavItem>
+          <NavItem href="/Recent" isActive>Recent</NavItem>
+          <NavItem href="/Subscriptions">Subscriptions</NavItem>
           </ul>
         </nav>
         <div className="w-full px-5 xl:px-0 mx-auto max-w-screen-xl grid md:grid-cols-2  gap-7">
-        {data?.getAllPodcasts.podcasts?.map((podcast) => (
+        {data?.getRecentlyPodcast.podcasts?.map((podcast) => (
           <PodcastCard 
-            id={podcast.id} 
-            thumbnail={podcast.thumbnail||""}
-            title={podcast.title}
-            category={podcast.category}
-            host={podcast.host.email}
-            rating={podcast.rating}
-            description={podcast.description||""}
-          />
+          id={podcast.id} 
+          thumbnail={podcast.thumbnail||""}
+          title={podcast.title}
+          category={podcast.category}
+          host={podcast.host.email}
+          rating={podcast.rating}
+          description={podcast.description||""}
+        />
         ))}
       </div>
       </div>
