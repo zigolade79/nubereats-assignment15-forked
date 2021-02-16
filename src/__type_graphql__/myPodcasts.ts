@@ -23,7 +23,6 @@ export interface myPodcasts_myPodcasts_podcasts {
   rating: number;
   host: myPodcasts_myPodcasts_podcasts_host;
   isOnSubscribe: boolean | null;
-  numSubscriber: number | null;
 }
 
 export interface myPodcasts_myPodcasts {

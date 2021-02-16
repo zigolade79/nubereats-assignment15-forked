@@ -69,6 +69,7 @@ export const Podcasts = () => {
         {data?.getAllPodcasts.podcasts?.map((podcast) => (
           <PodcastCard 
             id={podcast.id} 
+            linkTo={`/podcasts/${podcast.id}`}
             thumbnail={podcast.thumbnail||""}
             title={podcast.title}
             category={podcast.category}

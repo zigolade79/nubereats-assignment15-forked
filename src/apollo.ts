@@ -8,6 +8,7 @@ export const authTokenVar = makeVar(token);
 
 const httpLink = createHttpLink({
     uri: "https://ubereats-challenge-backend.herokuapp.com/graphql",
+    //uri:"http://localhost:4000/graphql",
 });
 
 const authLink = setContext((_, { headers }) => {

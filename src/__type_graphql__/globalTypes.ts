@@ -20,7 +20,9 @@ export interface CreateAccountInput {
 
 export interface CreateEpisodeInput {
   title: string;
+  description?: string | null;
   category: string;
+  fileUrl?: string | null;
   podcastId: number;
 }
 

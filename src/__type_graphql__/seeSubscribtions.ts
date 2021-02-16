@@ -25,7 +25,6 @@ export interface seeSubscribtions_seeSubscribtions_subscriptions {
   rating: number;
   host: seeSubscribtions_seeSubscribtions_subscriptions_host;
   isOnSubscribe: boolean | null;
-  numSubscriber: number | null;
 }
 
 export interface seeSubscribtions_seeSubscribtions {

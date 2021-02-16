@@ -69,6 +69,7 @@ export const RecentPodcasts = () => {
         <div className="w-full px-5 xl:px-0 mx-auto max-w-screen-xl grid md:grid-cols-2  gap-7">
         {data?.getRecentlyPodcast.podcasts?.map((podcast) => (
           <PodcastCard 
+          linkTo={`/podcasts/${podcast.id}`}
           id={podcast.id} 
           thumbnail={podcast.thumbnail||""}
           title={podcast.title}

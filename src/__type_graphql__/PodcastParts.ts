@@ -23,5 +23,4 @@ export interface PodcastParts {
   rating: number;
   host: PodcastParts_host;
   isOnSubscribe: boolean | null;
-  numSubscriber: number | null;
 }

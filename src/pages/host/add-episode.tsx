@@ -26,6 +26,7 @@ interface IFormProps {
   title: string;
   category: string;
   description: string;
+  file: FileList;
 }
 
 interface IParams {
@@ -41,7 +42,7 @@ export const AddEpisode = () => {
     } = data;
     if (ok) {
       setUploading(false);
-      history.push("/");
+      history.goBack();
     }
   };
   const [createEpisode, { data }] = useMutation<
@@ -49,6 +50,17 @@ export const AddEpisode = () => {
     createEpisodeVariables
   >(CREATE_EPISODE_MUTAION, {
     onCompleted,
+    refetchQueries:[{
+      query:GET_MY_EPISODES_QUERY,
+      variables: {
+        podcastSearchInput: {
+          id: +id,
+        },
+        getEpisodesInput: {
+          podcastId: +id,
+        },
+      },
+    }]
   });
   const {
     register,
@@ -62,15 +74,28 @@ export const AddEpisode = () => {
   const [uploading, setUploading] = useState(false);
   const onSubmit = async () => {
     try {
-      setUploading(true);
-      const { title, category, description } = getValues();
-
+        setUploading(true);
+        const { file, title, category, description } = getValues();
+        const actualFile = file[0];
+        const formBody = new FormData();
+        formBody.append("file", actualFile);
+        const { url: fileUrl } = await (
+          await fetch(
+            "https://ubereats-challenge-backend.herokuapp.com/upload/",
+            {
+              method: "POST",
+              body: formBody,
+            }
+          )
+        ).json();
       createEpisode({
         variables: {
           input: {
             title,
             category,
             podcastId: +id,
+            fileUrl,
+            description,
           },
         },
       });
@@ -82,7 +107,7 @@ export const AddEpisode = () => {
   return (
     <div className="container">
       <Helmet>
-        <title>Add Episode | Nuber-podcasts</title>
+        <title>Add Episode | podcasts</title>
       </Helmet>
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -131,6 +156,17 @@ export const AddEpisode = () => {
         {errors.description?.message && (
           <FormError errorMessage={errors.description.message} />
         )}
+         <div className="mt-8 border-b-2 border-blue-400 py-2 bg-transparent flex">
+          <input
+            ref={register({
+              required: true,
+            })}
+            className="focus:outline-none pl-2 w-full"
+            name="file"
+            type="file"
+            accept="audio/*"
+          ></input>
+        </div>
 
         <Button
           className="mt-12"

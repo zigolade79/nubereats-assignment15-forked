@@ -13,4 +13,5 @@ export interface EpisodeParts {
   title: string;
   description: string | null;
   category: string;
+  fileUrl: string | null;
 }

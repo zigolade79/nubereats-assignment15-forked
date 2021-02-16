@@ -25,7 +25,6 @@ export interface getMyEpisodes_getPodcast_podcast {
   rating: number;
   host: getMyEpisodes_getPodcast_podcast_host;
   isOnSubscribe: boolean | null;
-  numSubscriber: number | null;
 }
 
 export interface getMyEpisodes_getPodcast {
@@ -41,6 +40,7 @@ export interface getMyEpisodes_getEpisodes_episodes {
   title: string;
   description: string | null;
   category: string;
+  fileUrl: string | null;
 }
 
 export interface getMyEpisodes_getEpisodes {

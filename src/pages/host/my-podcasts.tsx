@@ -25,7 +25,7 @@ export const MyPodcasts = () => {
   return (
     <div className="h-screen flex flex-col items-center  bg-gray-50">
       <Helmet>
-        <title>My Podcasts | Nuber-podcasts</title>
+        <title>My Podcasts | podcasts</title>
       </Helmet>
       <div className="container mt-32 ">
         <h2 className="text-4xl font-medium mb-10">My Podcasts</h2>
@@ -41,6 +41,7 @@ export const MyPodcasts = () => {
       <div className="w-full px-5 xl:px-0 mx-auto max-w-screen-xl grid md:grid-cols-2 xl:grid-cols-4 gap-7">
         {data?.myPodcasts.podcasts?.map((podcast) => (
           <PodcastCard 
+          linkTo={`/mypodcast/${podcast.id}`}
           id={podcast.id} 
           thumbnail={podcast.thumbnail||""}
           title={podcast.title}

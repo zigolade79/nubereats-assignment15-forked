@@ -13,7 +13,6 @@ export const PODCAST_FRAGMENT = gql`
             email
         }
         isOnSubscribe
-        numSubscriber     
     }
 `;
 
@@ -23,6 +22,6 @@ export const EPISODE_FRAGMENT = gql`
         title
         description
         category
-       
+        fileUrl
     }
 `;

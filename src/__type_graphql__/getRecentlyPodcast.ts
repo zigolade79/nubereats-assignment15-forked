@@ -25,7 +25,6 @@ export interface getRecentlyPodcast_getRecentlyPodcast_podcasts {
   rating: number;
   host: getRecentlyPodcast_getRecentlyPodcast_podcasts_host;
   isOnSubscribe: boolean | null;
-  numSubscriber: number | null;
 }
 
 export interface getRecentlyPodcast_getRecentlyPodcast {

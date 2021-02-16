@@ -12,6 +12,7 @@ import {
   getMyEpisodes,
   getMyEpisodesVariables,
 } from "../../__type_graphql__/getMyEpisodes";
+import ReactPlayer from "react-player";
 
 const DELETE_EPISODE_MUTATION = gql`
   mutation deleteEpisode($input: EpisodesSearchInput!) {
@@ -66,7 +67,17 @@ export const MyPodcast = () => {
   const [deleteEpisode, { data: deleteEpisodeResult }] = useMutation<
     deleteEpisode,
     deleteEpisodeVariables
-  >(DELETE_EPISODE_MUTATION, { onCompleted });
+  >(DELETE_EPISODE_MUTATION, { refetchQueries:[{
+    query:GET_MY_EPISODES_QUERY,
+    variables: {
+      podcastSearchInput: {
+        id: +id,
+      },
+      getEpisodesInput: {
+        podcastId: +id,
+      },
+    },
+  }]});
   const onClickDeleteEpisode = (episodeId: number) => {
     if (window.confirm("really delet episode?")) {
       deleteEpisode({
@@ -127,53 +138,45 @@ export const MyPodcast = () => {
         {data?.getEpisodes.episodes?.map((episode) => (
           <div
             key={episode.id}
-            className="w-full border-2 border-blue-400 rounded-lg px-4 md:px-16 py-3 flex justify-between items-center"
+            className="w-full border-2 border-blue-400 rounded-lg px-4 md:px-16 py-3 "
           >
-            <div className="mr-2 md:mr-8">
-              <h2 className="font-semibold font-lg">{episode.title}</h2>
-              <h3 className="font-md"> - {episode.description}</h3>
-            </div>
-            <div>
-              <svg
-                className="w-12 hover:text-blue-400 transition-colors cursor-pointer"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
-                />
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-            </div>
-            <div>
-              <button
-                className=" border-none outline-none"
-                onClick={() => onClickDeleteEpisode(episode.id)}
-              >
-                <svg
-                  className=" border-none outline-none"
-                  height="40px"
-                  viewBox="0 0 512 512"
-                  width="40px"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="m256 512c-141.160156 0-256-114.839844-256-256s114.839844-256 256-256 256 114.839844 256 256-114.839844 256-256 256zm0-475.429688c-120.992188 0-219.429688 98.4375-219.429688 219.429688s98.4375 219.429688 219.429688 219.429688 219.429688-98.4375 219.429688-219.429688-98.4375-219.429688-219.429688-219.429688zm0 0" />
-                  <path d="m347.429688 365.714844c-4.679688 0-9.359376-1.785156-12.929688-5.359375l-182.855469-182.855469c-7.144531-7.144531-7.144531-18.714844 0-25.855469 7.140625-7.140625 18.714844-7.144531 25.855469 0l182.855469 182.855469c7.144531 7.144531 7.144531 18.714844 0 25.855469-3.570313 3.574219-8.246094 5.359375-12.925781 5.359375zm0 0" />
-                  <path d="m164.570312 365.714844c-4.679687 0-9.355468-1.785156-12.925781-5.359375-7.144531-7.140625-7.144531-18.714844 0-25.855469l182.855469-182.855469c7.144531-7.144531 18.714844-7.144531 25.855469 0 7.140625 7.140625 7.144531 18.714844 0 25.855469l-182.855469 182.855469c-3.570312 3.574219-8.25 5.359375-12.929688 5.359375zm0 0" />
-                </svg>
-              </button>
-            </div>
+            <div className="flex justify-between items-center">
+                <div className="mr-2 md:mr-8">
+                  <h2 className="font-semibold font-lg">{episode.title}</h2>
+                  <h3 className="font-md"> - {episode.description}</h3>
+                </div>
+                
+                <div>
+                  <button
+                    className=" border-none outline-none"
+                    onClick={() => onClickDeleteEpisode(episode.id)}
+                  >
+                    <svg
+                      className=" border-none outline-none"
+                      height="40px"
+                      viewBox="0 0 512 512"
+                      width="40px"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="m256 512c-141.160156 0-256-114.839844-256-256s114.839844-256 256-256 256 114.839844 256 256-114.839844 256-256 256zm0-475.429688c-120.992188 0-219.429688 98.4375-219.429688 219.429688s98.4375 219.429688 219.429688 219.429688 219.429688-98.4375 219.429688-219.429688-98.4375-219.429688-219.429688-219.429688zm0 0" />
+                      <path d="m347.429688 365.714844c-4.679688 0-9.359376-1.785156-12.929688-5.359375l-182.855469-182.855469c-7.144531-7.144531-7.144531-18.714844 0-25.855469 7.140625-7.140625 18.714844-7.144531 25.855469 0l182.855469 182.855469c7.144531 7.144531 7.144531 18.714844 0 25.855469-3.570313 3.574219-8.246094 5.359375-12.925781 5.359375zm0 0" />
+                      <path d="m164.570312 365.714844c-4.679687 0-9.355468-1.785156-12.925781-5.359375-7.144531-7.140625-7.144531-18.714844 0-25.855469l182.855469-182.855469c7.144531-7.144531 18.714844-7.144531 25.855469 0 7.140625 7.140625 7.144531 18.714844 0 25.855469l-182.855469 182.855469c-3.570312 3.574219-8.25 5.359375-12.929688 5.359375zm0 0" />
+                    </svg>
+                  </button>
+                </div>
+                </div>
+                <div >
+                      <ReactPlayer
+                     
+                      url={episode.fileUrl||""}
+                      playing={false}
+                      controls={true}
+                      width="80%"
+                      height="2rem"
+                  />
+                </div>
           </div>
+          
         ))}
       </div>
     </div>

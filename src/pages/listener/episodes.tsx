@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Helmet } from "react-helmet";
 import { Link, useParams } from "react-router-dom";
 import { Button } from "../../components/button";
-import { PODCAST_FRAGMENT } from "../../fragments";
+import { EPISODE_FRAGMENT, PODCAST_FRAGMENT } from "../../fragments";
 import {
   getEpisodes,
   getEpisodesVariables,
@@ -13,6 +13,7 @@ import {
   subscribeToPodcast,
   subscribeToPodcastVariables,
 } from "../../__type_graphql__/subscribeToPodcast";
+import ReactPlayer from "react-player";
 
 const TOGGLE_SUBSCRIBE_MUTATION = gql`
   mutation subscribeToPodcast($input: ToggleSubscriptionInput!) {
@@ -39,13 +40,14 @@ export const GET_EPISODES_QUERY = gql`
     getEpisodes(input: $getEpisodesInput) {
       ok
       error
+
       episodes {
-        title
-        description
+        ...EpisodeParts
       }
     }
   }
   ${PODCAST_FRAGMENT}
+  ${EPISODE_FRAGMENT}
 `;
 
 interface IEpisodeParams {
@@ -159,36 +161,28 @@ export const Episodes = () => {
       <div className="grid grid-cols-1 gap-3">
         {data?.getEpisodes.episodes?.map((episode) => (
           <div
-            key={episode.title}
-            className="w-full border-2 border-purple-400 rounded-lg px-4 md:px-16 py-3 flex justify-between items-center"
-          >
-            <div className="mr-2 md:mr-8">
-              <h2 className="font-semibold font-lg">{episode.title}</h2>
-              <h3 className="font-md"> - {episode.description}</h3>
-            </div>
-            <div>
-              <svg
-                className="w-12 hover:text-purple-400 transition-colors cursor-pointer"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
+          key={episode.title}
+          className="w-full border-2 border-blue-400 rounded-lg px-4 md:px-16 py-3 "
+        >
+          <div className="flex justify-between items-center">
+              <div className="mr-2 md:mr-8">
+                <h2 className="font-semibold font-lg">{episode.title}</h2>
+                <h3 className="font-md"> - {episode.description}</h3>
+              </div>
+              
+              
+              </div>
+              <div >
+                    <ReactPlayer
+                   
+                    url={episode.fileUrl||""}
+                    playing={false}
+                    controls={true}
+                    width="80%"
+                    height="2rem"
                 />
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-            </div>
-          </div>
+              </div>
+        </div>
         ))}
       </div>
     </div>

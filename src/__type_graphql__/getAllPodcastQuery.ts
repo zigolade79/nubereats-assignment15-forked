@@ -25,7 +25,6 @@ export interface getAllPodcastQuery_getAllPodcasts_podcasts {
   rating: number;
   host: getAllPodcastQuery_getAllPodcasts_podcasts_host;
   isOnSubscribe: boolean | null;
-  numSubscriber: number | null;
 }
 
 export interface getAllPodcastQuery_getAllPodcasts {

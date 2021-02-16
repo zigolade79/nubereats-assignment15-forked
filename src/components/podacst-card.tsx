@@ -9,6 +9,7 @@ interface IPodcastCardProps {
     host:string;
     rating:number;
     description:string;
+    linkTo:string;
   }
 
   export const PodcastCard: React.FC<IPodcastCardProps> = ({
@@ -18,11 +19,12 @@ interface IPodcastCardProps {
     category,
     host,
     rating,
-    description
+    description,
+    linkTo,
   }) => (
     
             <Link
-                to={`/podcasts/${id}`}
+                to={linkTo}
                 key={id}
                 className="relative group"
             >
